@@ -722,25 +722,30 @@
     </div>
 
     <div class="form-wrapper">
+      <div id="successMsg" style="display:none; text-align:center; padding:2.5rem 1rem;">
+        <div style="font-size:3rem; margin-bottom:1rem;">✅</div>
+        <h3 style="color:#e8b84b; font-size:1.5rem; margin-bottom:0.6rem;">Booking Request Received!</h3>
+        <p style="opacity:0.8;">Thank you! We'll review your details and get back to you within 24 hours with a custom quote.</p>
+      </div>
       <form id="bookingForm">
 
         <!-- Contact Info -->
         <div class="form-grid">
           <div>
             <label for="fname">First Name *</label>
-            <input type="text" id="fname" required placeholder="Maria" />
+            <input type="text" id="fname" name="First Name" required placeholder="Maria" />
           </div>
           <div>
             <label for="lname">Last Name *</label>
-            <input type="text" id="lname" required placeholder="Garcia" />
+            <input type="text" id="lname" name="Last Name" required placeholder="Garcia" />
           </div>
           <div>
             <label for="email">Email Address *</label>
-            <input type="email" id="email" required placeholder="you@example.com" />
+            <input type="email" id="email" name="email" required placeholder="you@example.com" />
           </div>
           <div>
             <label for="phone">Phone Number *</label>
-            <input type="tel" id="phone" required placeholder="(555) 000-0000" />
+            <input type="tel" id="phone" name="Phone" required placeholder="(555) 000-0000" />
           </div>
         </div>
 
@@ -750,7 +755,7 @@
         <div class="form-grid">
           <div>
             <label for="event-type">Event Type *</label>
-            <select id="event-type" required>
+            <select id="event-type" name="Event Type" required>
               <option value="" disabled selected>Select event type…</option>
               <option>Wedding</option>
               <option>Birthday Party</option>
@@ -766,7 +771,7 @@
           </div>
           <div>
             <label for="guests">Estimated Guest Count *</label>
-            <select id="guests" required>
+            <select id="guests" name="Guest Count" required>
               <option value="" disabled selected>Select range…</option>
               <option>Under 50</option>
               <option>50 – 100</option>
@@ -778,15 +783,15 @@
           </div>
           <div>
             <label for="event-date">Event Date *</label>
-            <input type="date" id="event-date" required />
+            <input type="date" id="event-date" name="Event Date" required />
           </div>
           <div>
             <label for="event-time">Start Time</label>
-            <input type="time" id="event-time" />
+            <input type="time" id="event-time" name="Start Time" />
           </div>
           <div class="form-full">
             <label for="venue">Venue / Location *</label>
-            <input type="text" id="venue" required placeholder="Venue name and city" />
+            <input type="text" id="venue" name="Venue" required placeholder="Venue name and city" />
           </div>
         </div>
 
@@ -797,27 +802,27 @@
           <label>Services Needed * (select all that apply)</label>
           <div class="check-grid">
             <label class="check-item">
-              <input type="checkbox" name="services" value="Sound & AV Equipment" />
+              <input type="checkbox" name="Services" value="Sound & AV Equipment" />
               <span>🔊 Sound & AV Equipment</span>
             </label>
             <label class="check-item">
-              <input type="checkbox" name="services" value="Lighting & Stage Setup" />
+              <input type="checkbox" name="Services" value="Lighting & Stage Setup" />
               <span>💡 Lighting & Stage Setup</span>
             </label>
             <label class="check-item">
-              <input type="checkbox" name="services" value="Camera & Video Production" />
+              <input type="checkbox" name="Services" value="Camera & Video Production" />
               <span>🎥 Camera & Video Production</span>
             </label>
             <label class="check-item">
-              <input type="checkbox" name="services" value="Professional AV Staff" />
+              <input type="checkbox" name="Services" value="Professional AV Staff" />
               <span>👨‍💼 Professional AV Staff</span>
             </label>
             <label class="check-item">
-              <input type="checkbox" name="services" value="Full-Service Catering" />
+              <input type="checkbox" name="Services" value="Full-Service Catering" />
               <span>🍽️ Full-Service Catering</span>
             </label>
             <label class="check-item">
-              <input type="checkbox" name="services" value="Complete Event Setup" />
+              <input type="checkbox" name="Services" value="Complete Event Setup" />
               <span>🎉 Complete Event Setup</span>
             </label>
           </div>
@@ -828,7 +833,7 @@
         <!-- Notes -->
         <div>
           <label for="notes">Additional Details / Special Requests</label>
-          <textarea id="notes" placeholder="Tell us more about your vision, any specific equipment, dietary restrictions, theme, etc."></textarea>
+          <textarea id="notes" name="Additional Notes" placeholder="Tell us more about your vision, any specific equipment, dietary restrictions, theme, etc."></textarea>
         </div>
 
         <!-- Submit -->
@@ -873,59 +878,41 @@
     mobileNav.classList.remove('open');
   }
 
-  document.getElementById('bookingForm').addEventListener('submit', function(e) {
+  document.getElementById('bookingForm').addEventListener('submit', async function(e) {
     e.preventDefault();
 
-    const BUSINESS_EMAIL = 'mpgavcateringbooking@gmail.com';
-
-    const fname     = document.getElementById('fname').value.trim();
-    const lname     = document.getElementById('lname').value.trim();
-    const email     = document.getElementById('email').value.trim();
-    const phone     = document.getElementById('phone').value.trim();
-    const eventType = document.getElementById('event-type').value;
-    const guests    = document.getElementById('guests').value;
-    const eventDate = document.getElementById('event-date').value;
-    const eventTime = document.getElementById('event-time').value;
-    const venue     = document.getElementById('venue').value.trim();
-    const notes     = document.getElementById('notes').value.trim();
-
-    const checked = [...document.querySelectorAll('input[name="services"]:checked')]
-      .map(cb => cb.value);
-
+    const checked = [...document.querySelectorAll('input[name="Services"]:checked')];
     if (checked.length === 0) {
       alert('Please select at least one service.');
       return;
     }
 
-    const subject = `Booking Request – ${eventType} on ${eventDate} | ${fname} ${lname}`;
+    const btn = this.querySelector('button[type="submit"]');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
 
-    const body =
-`NEW BOOKING REQUEST — M.G.P. AV Rental & Catering
-=====================================================
+    const data = new FormData(this);
 
-CONTACT INFORMATION
-  Name:    ${fname} ${lname}
-  Email:   ${email}
-  Phone:   ${phone}
+    try {
+      const res = await fetch('https://formspree.io/f/xzdlbpeo', {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
 
-EVENT DETAILS
-  Type:    ${eventType}
-  Date:    ${eventDate}
-  Time:    ${eventTime || 'Not specified'}
-  Venue:   ${venue}
-  Guests:  ${guests}
-
-SERVICES REQUESTED
-  ${checked.join('\n  ')}
-
-ADDITIONAL NOTES
-  ${notes || 'None provided'}
-
-=====================================================
-Sent via M.G.P. Booking Form`;
-
-    const mailto = `mailto:${BUSINESS_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailto;
+      if (res.ok) {
+        document.getElementById('bookingForm').style.display = 'none';
+        document.getElementById('successMsg').style.display = 'block';
+      } else {
+        btn.textContent = 'Send Booking Request ✉️';
+        btn.disabled = false;
+        alert('Something went wrong. Please try again or email us directly at mpgavcateringbooking@gmail.com');
+      }
+    } catch {
+      btn.textContent = 'Send Booking Request ✉️';
+      btn.disabled = false;
+      alert('Something went wrong. Please try again or email us directly at mpgavcateringbooking@gmail.com');
+    }
   });
 </script>
 
