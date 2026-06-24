@@ -19,13 +19,19 @@
     nav { position: fixed; top: 0; width: 100%; z-index: 100; background: rgba(10,10,15,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(232,184,75,0.15); padding: 1rem 0; }
     nav .container { display: flex; align-items: center; justify-content: space-between; }
     .nav-logo { font-size: 1.4rem; font-weight: 800; letter-spacing: 0.04em; }
-    .nav-links { display: flex; gap: 2rem; font-size: 0.95rem; }
+    .nav-links { display: flex; gap: 1.6rem; font-size: 0.95rem; align-items: center; }
     .nav-links a { opacity: 0.8; transition: opacity 0.2s; }
     .nav-links a:hover { opacity: 1; color: #e8b84b; }
+    .speaks-es { font-size: 0.78rem; font-weight: 700; color: #e8b84b; background: rgba(232,184,75,0.1); border: 1px solid rgba(232,184,75,0.3); border-radius: 50px; padding: 0.25rem 0.75rem; white-space: nowrap; opacity: 1 !important; }
+    .nav-contact-btn { background: transparent; border: 1.5px solid #e8b84b; color: #e8b84b; padding: 0.35rem 1.1rem; border-radius: 4px; font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: all 0.2s; font-family: inherit; text-decoration: none; display: inline-block; opacity: 1 !important; }
+    .nav-contact-btn:hover { background: #e8b84b; color: #0a0a0f; }
     .hero { min-height: 100vh; display: flex; align-items: center; background: linear-gradient(to bottom, rgba(10,10,15,0.55) 0%, rgba(10,10,15,0.85) 100%), url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1600&q=80') center/cover no-repeat; padding: 8rem 0 5rem; text-align: center; }
     .hero h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); font-weight: 900; line-height: 1.1; margin-bottom: 1.2rem; text-shadow: 0 2px 20px rgba(0,0,0,0.7); }
     .hero p { font-size: clamp(1rem, 2.2vw, 1.25rem); max-width: 680px; margin: 0 auto 2.2rem; opacity: 0.88; }
     .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .lang-toggle-wrap { margin-top: 1.4rem; }
+    .lang-toggle-btn { background: none; border: 1.5px solid rgba(232,184,75,0.5); color: rgba(232,184,75,0.85); padding: 0.45rem 1.4rem; border-radius: 50px; font-size: 0.88rem; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: inherit; letter-spacing: 0.03em; }
+    .lang-toggle-btn:hover { border-color: #e8b84b; color: #e8b84b; background: rgba(232,184,75,0.08); }
     .section { padding: 5.5rem 0; }
     .section-label { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #e8b84b; margin-bottom: 0.6rem; }
     .section-title { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; margin-bottom: 1rem; line-height: 1.2; }
@@ -88,18 +94,40 @@
     .mobile-nav.open { display: flex; }
     .mobile-nav a { padding: 0.85rem 0; font-size: 1.05rem; font-weight: 600; border-bottom: 1px solid rgba(255,255,255,0.06); opacity: 0.85; }
     .mobile-nav a:last-child { border-bottom: none; color: #e8b84b; opacity: 1; }
+    .contact-modal-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.75); align-items: center; justify-content: center; }
+    .contact-modal-overlay.open { display: flex; }
+    .contact-modal { background: #13131e; border: 1px solid rgba(232,184,75,0.35); border-radius: 14px; padding: 2.5rem 2rem; max-width: 440px; width: 90%; position: relative; text-align: center; }
+    .contact-modal h3 { color: #e8b84b; font-size: 1.4rem; margin-bottom: 0.6rem; }
+    .contact-modal p { opacity: 0.78; margin-bottom: 1.5rem; font-size: 0.97rem; }
+    .contact-email-box { background: rgba(255,255,255,0.06); border: 1px solid rgba(232,184,75,0.25); border-radius: 8px; padding: 0.9rem 1.2rem; font-size: 1rem; margin-bottom: 1.2rem; color: #e8e8f0; word-break: break-all; }
+    .modal-close { position: absolute; top: 0.9rem; right: 1rem; background: none; border: none; color: #e8e8f0; font-size: 1.5rem; cursor: pointer; opacity: 0.6; line-height: 1; transition: opacity 0.2s; }
+    .modal-close:hover { opacity: 1; }
     @media (max-width: 640px) { .form-grid { grid-template-columns: 1fr; } .form-wrapper { padding: 2rem 1.2rem; } .nav-links { display: none; } .hamburger { display: flex; } }
   </style>
 </head>
 <body>
+
+<!-- Contact Us Modal -->
+<div class="contact-modal-overlay" id="contactModal">
+  <div class="contact-modal">
+    <button class="modal-close" onclick="closeContactModal()" aria-label="Close">&times;</button>
+    <h3 data-t="modal-title">Contact Us</h3>
+    <p data-t="modal-p">Contact us with any concerns or questions</p>
+    <div class="contact-email-box">mgpavcateringbooking@gmail.com</div>
+    <button class="btn btn-gold" id="copyBtn" onclick="copyEmail()" style="width:100%;" data-t="modal-copy">Copy Email</button>
+  </div>
+</div>
+
 <nav>
   <div class="container">
     <div class="nav-logo">M<span class="gold">.</span>G<span class="gold">.</span>P<span class="gold">.</span></div>
     <div class="nav-links">
-      <a href="#services">Services</a>
-      <a href="#events">Events</a>
-      <a href="#why-us">Why Us</a>
-      <a href="#book" class="gold">Book Now</a>
+      <a href="#services" data-t="nav-services">Services</a>
+      <a href="#events" data-t="nav-events">Events</a>
+      <a href="#why-us" data-t="nav-whyus">Why Us</a>
+      <a href="javascript:void(0)" onclick="openContactModal()" data-t="nav-contact">Contact Us</a>
+      <span class="speaks-es">Hablamos Espa&ntilde;ol</span>
+      <a href="#book" class="nav-contact-btn" data-t="nav-book">Book Now</a>
     </div>
     <button class="hamburger" id="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -107,241 +135,546 @@
   </div>
 </nav>
 <div class="mobile-nav" id="mobileNav">
-  <a href="#services" onclick="closeNav()">Services</a>
-  <a href="#events" onclick="closeNav()">Events</a>
-  <a href="#why-us" onclick="closeNav()">Why Us</a>
-  <a href="#book" onclick="closeNav()">Book Now</a>
+  <a href="#services" onclick="closeNav()" data-t="nav-services">Services</a>
+  <a href="#events" onclick="closeNav()" data-t="nav-events">Events</a>
+  <a href="#why-us" onclick="closeNav()" data-t="nav-whyus">Why Us</a>
+  <a href="javascript:void(0)" onclick="closeNav(); openContactModal()" data-t="nav-contact">Contact Us</a>
+  <a href="#book" onclick="closeNav()" data-t="nav-book">Book Now</a>
 </div>
+
 <section class="hero">
   <div class="container">
-    <p class="section-label" style="text-align:center;">M.G.P. AV Rental, Party Setup &amp; Catering</p>
-    <h1>Your Event.<br /><span class="gold">Unforgettable.</span></h1>
-    <p>From crystal-clear sound and stunning visuals to beautifully captured memories and expertly catered cuisine &mdash; we bring the full experience to your wedding, party, corporate event, and beyond.</p>
+    <p class="section-label" style="text-align:center;" data-t="hero-label">M.G.P. AV Rental, Party Setup &amp; Catering</p>
+    <h1 data-t="hero-h1">Make your event <span class="gold">unforgettable!</span></h1>
+    <p data-t="hero-p">From crystal-clear sound and stunning visuals to beautifully captured memories and expertly catered cuisine &mdash; we bring the full experience to your wedding, party, corporate event, and beyond.</p>
     <div class="hero-btns">
-      <a href="#book" class="btn btn-gold">Book Your Event</a>
-      <a href="#services" class="btn btn-outline">Explore Services</a>
+      <a href="#book" class="btn btn-gold" data-t="hero-btn-book">Book Your Event</a>
+      <a href="#services" class="btn btn-outline" data-t="hero-btn-services">Explore Services</a>
+    </div>
+    <div class="lang-toggle-wrap">
+      <button class="lang-toggle-btn" id="langToggleBtn" onclick="toggleLanguage()">Ver en Espa&ntilde;ol</button>
     </div>
   </div>
 </section>
+
 <section class="section" id="services">
   <div class="container">
     <div class="section-header">
-      <p class="section-label">What We Offer</p>
-      <h2 class="section-title">Everything Your Event Needs, <span class="gold">All In One Place</span></h2>
-      <p class="section-sub">We handle the technical side so you can focus on enjoying every moment.</p>
+      <p class="section-label" data-t="svc-label">What We Offer</p>
+      <h2 class="section-title" data-t="svc-title">Everything Your Event Needs, <span class="gold">All In One Place</span></h2>
+      <p class="section-sub" data-t="svc-sub">We handle the technical side so you can focus on enjoying every moment.</p>
     </div>
     <div class="services-grid">
+
       <div class="service-card">
         <div class="service-icon">&#128266;</div>
-        <h3>Sound &amp; AV Equipment</h3>
-        <p>Professional-grade gear for any venue size &mdash; crystal-clear audio and stunning visuals.</p>
-        <ul><li>Line-array &amp; PA speakers</li><li>Wireless microphones</li><li>HD projectors &amp; screens</li><li>Mixing boards &amp; monitors</li></ul>
+        <h3 data-t="c1-title">Sound &amp; AV Equipment</h3>
+        <p data-t="c1-p">Professional-grade gear for any venue size &mdash; crystal-clear audio and stunning visuals.</p>
+        <ul data-t="c1-ul"><li>Line-array &amp; PA speakers</li><li>Wireless microphones</li><li>HD projectors &amp; screens</li><li>Mixing boards &amp; monitors</li></ul>
         <button class="dropdown-btn" onclick="toggleCard(this)" aria-label="Show details">&#9660;</button>
         <div class="card-expand"><div class="expand-inner">
           <div class="expand-photos">
-            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=PA+Speaker+Photo" alt="PA Speaker" /><p class="photo-label">Replace with your speaker photo</p></div>
-            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=Projector+%26+Screen" alt="Projector and Screen" /><p class="photo-label">Replace with projector photo</p></div>
-            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=Mixing+Board" alt="Mixing Board" /><p class="photo-label">Replace with mixing board photo</p></div>
+            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=PA+Speaker+Photo" alt="PA Speaker" /><p class="photo-label" data-t="ph-replace">Replace with your speaker photo</p></div>
+            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=Projector+%26+Screen" alt="Projector and Screen" /><p class="photo-label" data-t="ph-replace">Replace with projector photo</p></div>
+            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=Mixing+Board" alt="Mixing Board" /><p class="photo-label" data-t="ph-replace">Replace with mixing board photo</p></div>
           </div>
-          <div class="expand-list"><h4>Full Equipment List</h4><ul><li>Line-array &amp; PA speaker systems</li><li>Powered subwoofers</li><li>Wireless handheld &amp; lapel microphones</li><li>HD &amp; 4K projectors</li><li>Projection screens (various sizes)</li><li>Professional mixing boards</li><li>Stage monitors &amp; floor wedges</li><li>DI boxes &amp; signal processors</li><li>All cabling &amp; rigging hardware</li></ul></div>
+          <div class="expand-list"><h4 data-t="full-list">Full Equipment List</h4><ul data-t="c1-full-ul"><li>Line-array &amp; PA speaker systems</li><li>Powered subwoofers</li><li>Wireless handheld &amp; lapel microphones</li><li>HD &amp; 4K projectors</li><li>Projection screens (various sizes)</li><li>Professional mixing boards</li><li>Stage monitors &amp; floor wedges</li><li>DI boxes &amp; signal processors</li><li>All cabling &amp; rigging hardware</li></ul></div>
         </div></div>
       </div>
+
       <div class="service-card">
         <div class="service-icon">&#128161;</div>
-        <h3>Lighting &amp; Stage Setup</h3>
-        <p>Set the perfect atmosphere with dynamic lighting rigs, uplighting, and stage design.</p>
-        <ul><li>LED wash &amp; moving heads</li><li>Dance floor uplighting</li><li>Gobo &amp; custom monograms</li><li>Stage &amp; truss construction</li></ul>
+        <h3 data-t="c2-title">Lighting &amp; Stage Setup</h3>
+        <p data-t="c2-p">Set the perfect atmosphere with dynamic lighting rigs, uplighting, and stage design.</p>
+        <ul data-t="c2-ul"><li>LED wash &amp; moving heads</li><li>Dance floor uplighting</li><li>Gobo &amp; custom monograms</li><li>Stage &amp; truss construction</li></ul>
         <button class="dropdown-btn" onclick="toggleCard(this)" aria-label="Show details">&#9660;</button>
         <div class="card-expand"><div class="expand-inner">
           <div class="expand-photos">
-            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=LED+Moving+Heads" alt="LED Moving Heads" /><p class="photo-label">Replace with your lighting photo</p></div>
-            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=Uplighting+Setup" alt="Uplighting" /><p class="photo-label">Replace with uplighting photo</p></div>
-            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=Stage+%26+Truss" alt="Stage and Truss" /><p class="photo-label">Replace with stage setup photo</p></div>
+            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=LED+Moving+Heads" alt="LED Moving Heads" /><p class="photo-label" data-t="ph-replace">Replace with your lighting photo</p></div>
+            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=Uplighting+Setup" alt="Uplighting" /><p class="photo-label" data-t="ph-replace">Replace with uplighting photo</p></div>
+            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=Stage+%26+Truss" alt="Stage and Truss" /><p class="photo-label" data-t="ph-replace">Replace with stage setup photo</p></div>
           </div>
-          <div class="expand-list"><h4>Full Equipment List</h4><ul><li>LED moving head wash &amp; beam fixtures</li><li>Par can uplighting (all colors)</li><li>Truss systems &amp; rigging</li><li>Gobo projectors &amp; custom monograms</li><li>Haze &amp; fog machines</li><li>DMX lighting controllers</li><li>Dance floor pin spotlights</li><li>Stage platforms &amp; stairs</li><li>Pipe &amp; drape backdrops</li></ul></div>
+          <div class="expand-list"><h4 data-t="full-list">Full Equipment List</h4><ul data-t="c2-full-ul"><li>LED moving head wash &amp; beam fixtures</li><li>Par can uplighting (all colors)</li><li>Truss systems &amp; rigging</li><li>Gobo projectors &amp; custom monograms</li><li>Haze &amp; fog machines</li><li>DMX lighting controllers</li><li>Dance floor pin spotlights</li><li>Stage platforms &amp; stairs</li><li>Pipe &amp; drape backdrops</li></ul></div>
         </div></div>
       </div>
+
       <div class="service-card">
         <div class="service-icon">&#127909;</div>
-        <h3>Camera &amp; Video Production</h3>
-        <p>Capture every priceless moment in stunning detail &mdash; from live streaming to full event coverage.</p>
-        <ul><li>Multi-camera setups</li><li>Live event streaming</li><li>Ceremony &amp; reception coverage</li><li>Highlight reel editing</li></ul>
+        <h3 data-t="c3-title">Camera &amp; Video Production</h3>
+        <p data-t="c3-p">Capture every priceless moment in stunning detail &mdash; from live streaming to full event coverage.</p>
+        <ul data-t="c3-ul"><li>Multi-camera setups</li><li>Live event streaming</li><li>Ceremony &amp; reception coverage</li><li>Highlight reel editing</li></ul>
         <button class="dropdown-btn" onclick="toggleCard(this)" aria-label="Show details">&#9660;</button>
         <div class="card-expand"><div class="expand-inner">
           <div class="expand-photos">
-            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=Camera+on+Tripod" alt="Camera Setup" /><p class="photo-label">Replace with your camera photo</p></div>
-            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=Live+Stream+Setup" alt="Live Stream Setup" /><p class="photo-label">Replace with live stream photo</p></div>
-            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=Multi-Cam+Rig" alt="Multi Camera Rig" /><p class="photo-label">Replace with multi-cam photo</p></div>
+            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=Camera+on+Tripod" alt="Camera Setup" /><p class="photo-label" data-t="ph-replace">Replace with your camera photo</p></div>
+            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=Live+Stream+Setup" alt="Live Stream Setup" /><p class="photo-label" data-t="ph-replace">Replace with live stream photo</p></div>
+            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=Multi-Cam+Rig" alt="Multi Camera Rig" /><p class="photo-label" data-t="ph-replace">Replace with multi-cam photo</p></div>
           </div>
-          <div class="expand-list"><h4>Full Equipment List</h4><ul><li>DSLR &amp; mirrorless cinema cameras</li><li>Fluid head tripods &amp; sliders</li><li>Motorized gimbals &amp; stabilizers</li><li>Live streaming encoders</li><li>Video switchers &amp; monitors</li><li>Wireless video transmission</li><li>External audio recorders</li><li>Drone footage (where permitted)</li><li>Post-production highlight reel editing</li></ul></div>
+          <div class="expand-list"><h4 data-t="full-list">Full Equipment List</h4><ul data-t="c3-full-ul"><li>DSLR &amp; mirrorless cinema cameras</li><li>Fluid head tripods &amp; sliders</li><li>Motorized gimbals &amp; stabilizers</li><li>Live streaming encoders</li><li>Video switchers &amp; monitors</li><li>Wireless video transmission</li><li>External audio recorders</li><li>Drone footage (where permitted)</li><li>Post-production highlight reel editing</li></ul></div>
         </div></div>
       </div>
+
       <div class="service-card">
         <div class="service-icon">&#128084;</div>
-        <h3>Professional AV Staff</h3>
-        <p>Our seasoned technicians manage every detail, so your event runs without a hitch.</p>
-        <ul><li>Lead AV technician on-site</li><li>Sound engineers</li><li>Lighting operators</li><li>Camera operators</li></ul>
+        <h3 data-t="c4-title">Professional AV Staff</h3>
+        <p data-t="c4-p">Our seasoned technicians manage every detail, so your event runs without a hitch.</p>
+        <ul data-t="c4-ul"><li>Lead AV technician on-site</li><li>Sound engineers</li><li>Lighting operators</li><li>Camera operators</li></ul>
         <button class="dropdown-btn" onclick="toggleCard(this)" aria-label="Show details">&#9660;</button>
         <div class="card-expand"><div class="expand-inner">
           <div class="expand-photos">
-            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=Your+Team+Photo" alt="Team Photo" /><p class="photo-label">Replace with your team photo</p></div>
-            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=Tech+at+Mixing+Board" alt="Technician at work" /><p class="photo-label">Replace with staff in action photo</p></div>
-            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=Camera+Operator" alt="Camera Operator" /><p class="photo-label">Replace with camera operator photo</p></div>
+            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=Your+Team+Photo" alt="Team Photo" /><p class="photo-label" data-t="ph-replace">Replace with your team photo</p></div>
+            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=Tech+at+Mixing+Board" alt="Technician at work" /><p class="photo-label" data-t="ph-replace">Replace with staff in action photo</p></div>
+            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=Camera+Operator" alt="Camera Operator" /><p class="photo-label" data-t="ph-replace">Replace with camera operator photo</p></div>
           </div>
-          <div class="expand-list"><h4>Our Staff Includes</h4><ul><li>Lead AV technician (on-site coordinator)</li><li>Front-of-house sound engineer</li><li>Monitor engineer</li><li>Lighting programmer &amp; operator</li><li>Camera operators (1&ndash;3 depending on coverage)</li><li>Live stream technician</li><li>Stage manager</li><li>Setup &amp; breakdown crew</li></ul></div>
+          <div class="expand-list"><h4 data-t="staff-list">Our Staff Includes</h4><ul data-t="c4-full-ul"><li>Lead AV technician (on-site coordinator)</li><li>Front-of-house sound engineer</li><li>Monitor engineer</li><li>Lighting programmer &amp; operator</li><li>Camera operators (1&ndash;3 depending on coverage)</li><li>Live stream technician</li><li>Stage manager</li><li>Setup &amp; breakdown crew</li></ul></div>
         </div></div>
       </div>
+
       <div class="service-card">
         <div class="service-icon">&#127869;</div>
-        <h3>Full-Service Catering</h3>
-        <p>Elevate your event with chef-crafted menus tailored to your taste and guest count.</p>
-        <ul><li>Custom menu planning</li><li>Buffet &amp; plated service</li><li>Cocktail hour appetizers</li><li>Dessert stations &amp; cake</li></ul>
+        <h3 data-t="c5-title">Full-Service Catering</h3>
+        <p data-t="c5-p">Elevate your event with chef-crafted menus tailored to your taste and guest count.</p>
+        <ul data-t="c5-ul"><li>Custom menu planning</li><li>Buffet &amp; plated service</li><li>Cocktail hour appetizers</li><li>Dessert stations &amp; cake</li></ul>
         <button class="dropdown-btn" onclick="toggleCard(this)" aria-label="Show details">&#9660;</button>
         <div class="card-expand"><div class="expand-inner">
           <div class="expand-photos">
-            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=Food+Spread+Photo" alt="Food spread" /><p class="photo-label">Replace with your food photo</p></div>
-            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=Plated+Dish+Photo" alt="Plated dish" /><p class="photo-label">Replace with plated dish photo</p></div>
-            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=Dessert+Station" alt="Dessert station" /><p class="photo-label">Replace with dessert station photo</p></div>
+            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=Food+Spread+Photo" alt="Food spread" /><p class="photo-label" data-t="ph-replace">Replace with your food photo</p></div>
+            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=Plated+Dish+Photo" alt="Plated dish" /><p class="photo-label" data-t="ph-replace">Replace with plated dish photo</p></div>
+            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=Dessert+Station" alt="Dessert station" /><p class="photo-label" data-t="ph-replace">Replace with dessert station photo</p></div>
           </div>
-          <div class="expand-list"><h4>What's Included</h4><ul><li>Custom menu consultation &amp; planning</li><li>Buffet-style service</li><li>Plated sit-down dining</li><li>Cocktail hour passed appetizers</li><li>Carving &amp; action stations</li><li>Dessert tables &amp; cake service</li><li>Non-alcoholic beverage service</li><li>Serving staff &amp; setup</li><li>Rentals: chafing dishes, linens, serving ware</li></ul></div>
+          <div class="expand-list"><h4 data-t="whats-included">What's Included</h4><ul data-t="c5-full-ul"><li>Custom menu consultation &amp; planning</li><li>Buffet-style service</li><li>Plated sit-down dining</li><li>Cocktail hour passed appetizers</li><li>Carving &amp; action stations</li><li>Dessert tables &amp; cake service</li><li>Non-alcoholic beverage service</li><li>Serving staff &amp; setup</li><li>Rentals: chafing dishes, linens, serving ware</li></ul></div>
         </div></div>
       </div>
+
       <div class="service-card">
         <div class="service-icon">&#127881;</div>
-        <h3>Complete Event Setup</h3>
-        <p>We transform any space into the venue of your dreams &mdash; setup, teardown, all included.</p>
-        <ul><li>Full venue transformation</li><li>D&eacute;cor &amp; table settings</li><li>Backdrop &amp; photo areas</li><li>Post-event breakdown</li></ul>
+        <h3 data-t="c6-title">Complete Event Setup</h3>
+        <p data-t="c6-p">We transform any space into the venue of your dreams &mdash; setup, teardown, all included.</p>
+        <ul data-t="c6-ul"><li>Full venue transformation</li><li>D&eacute;cor &amp; table settings</li><li>Backdrop &amp; photo areas</li><li>Post-event breakdown</li></ul>
         <button class="dropdown-btn" onclick="toggleCard(this)" aria-label="Show details">&#9660;</button>
         <div class="card-expand"><div class="expand-inner">
           <div class="expand-photos">
-            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=Venue+Setup+Photo" alt="Venue setup" /><p class="photo-label">Replace with your venue photo</p></div>
-            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=Table+Settings" alt="Table settings" /><p class="photo-label">Replace with table setup photo</p></div>
-            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=Backdrop+%26+Photo+Area" alt="Backdrop area" /><p class="photo-label">Replace with backdrop photo</p></div>
+            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=Venue+Setup+Photo" alt="Venue setup" /><p class="photo-label" data-t="ph-replace">Replace with your venue photo</p></div>
+            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=Table+Settings" alt="Table settings" /><p class="photo-label" data-t="ph-replace">Replace with table setup photo</p></div>
+            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=Backdrop+%26+Photo+Area" alt="Backdrop area" /><p class="photo-label" data-t="ph-replace">Replace with backdrop photo</p></div>
           </div>
-          <div class="expand-list"><h4>What's Included</h4><ul><li>Full venue transformation &amp; layout</li><li>Table centerpieces &amp; floral arrangements</li><li>Linen, chair covers &amp; sashes</li><li>Custom backdrops &amp; photo walls</li><li>Photo booth area setup</li><li>Entrance &amp; aisle d&eacute;cor</li><li>Balloon arrangements &amp; arches</li><li>Signage &amp; name cards</li><li>Complete post-event teardown &amp; cleanup</li></ul></div>
+          <div class="expand-list"><h4 data-t="whats-included">What's Included</h4><ul data-t="c6-full-ul"><li>Full venue transformation &amp; layout</li><li>Table centerpieces &amp; floral arrangements</li><li>Linen, chair covers &amp; sashes</li><li>Custom backdrops &amp; photo walls</li><li>Photo booth area setup</li><li>Entrance &amp; aisle d&eacute;cor</li><li>Balloon arrangements &amp; arches</li><li>Signage &amp; name cards</li><li>Complete post-event teardown &amp; cleanup</li></ul></div>
         </div></div>
       </div>
+
+
+      <div class="service-card">
+        <div class="service-icon">&#9981;</div>
+        <h3 data-t="c7-title">Tables, Chairs &amp; Tents</h3>
+        <p data-t="c7-p">Complete your event space with our furniture and shelter rentals &mdash; delivered, set up, and broken down for you.</p>
+        <ul data-t="c7-ul"><li>Folding &amp; round tables</li><li>Chiavari &amp; folding chairs</li><li>Event tents &amp; canopies</li><li>Delivery &amp; setup included</li></ul>
+        <button class="dropdown-btn" onclick="toggleCard(this)" aria-label="Show details">&#9660;</button>
+        <div class="card-expand"><div class="expand-inner">
+          <div class="expand-photos">
+            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=Tables+%26+Chairs" alt="Tables and Chairs" /><p class="photo-label" data-t="ph-replace">Replace with your tables photo</p></div>
+            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=Chiavari+Chairs" alt="Chiavari Chairs" /><p class="photo-label" data-t="ph-replace">Replace with your chairs photo</p></div>
+            <div class="expand-photo"><img src="https://placehold.co/360x220/13131e/e8b84b?text=Event+Tent+Setup" alt="Event Tent" /><p class="photo-label" data-t="ph-replace">Replace with your tent photo</p></div>
+          </div>
+          <div class="expand-list"><h4 data-t="whats-included">What's Included</h4><ul data-t="c7-full-ul"><li>6 ft &amp; 8 ft folding tables</li><li>60&quot; &amp; 72&quot; round tables</li><li>Chiavari chairs (gold, silver, white, black)</li><li>Padded folding chairs</li><li>20&times;20 to 40&times;60 event tents</li><li>Pop-up canopies</li><li>Delivery, setup &amp; breakdown included</li><li>Available with or without other M.G.P. services</li></ul></div>
+        </div></div>
+      </div>
+
     </div>
   </div>
 </section>
+
+<section style="background: linear-gradient(135deg, #0f0f1a, #1a1228); border-top: 1px solid rgba(232,184,75,0.2); border-bottom: 1px solid rgba(232,184,75,0.2); padding: 4.5rem 0; text-align: center;">
+  <div class="container">
+    <p class="section-label" data-t="rental-label">Add-On Rental</p>
+    <h2 class="section-title" data-t="rental-title">Tables, Chairs &amp; Tents — <span class="gold">Delivered &amp; Set Up</span></h2>
+    <p style="opacity:0.75; max-width:600px; margin:0.8rem auto 1.8rem; font-size:1.05rem;" data-t="rental-p">Don't stress about sourcing furniture or shelter. We deliver folding tables, round tables, Chiavari chairs, folding chairs, event tents, and canopies — and we handle the full setup and breakdown so your venue is ready when you arrive.</p>
+    <div style="display:flex; justify-content:center; gap:1.5rem; flex-wrap:wrap; margin-bottom:2rem;">
+      <span class="event-chip" data-t="rental-chip1">&#128760; Folding &amp; Round Tables</span>
+      <span class="event-chip" data-t="rental-chip2">&#129691; Chiavari &amp; Folding Chairs</span>
+      <span class="event-chip" data-t="rental-chip3">&#9981; Event Tents &amp; Canopies</span>
+      <span class="event-chip" data-t="rental-chip4">&#128666; Delivery &amp; Setup Included</span>
+    </div>
+    <a href="#contact" class="btn btn-gold" data-t="rental-cta">Get a Rental Quote</a>
+  </div>
+</section>
+
 <section class="events-banner" id="events">
   <div class="container">
-    <p class="section-label">We Serve Every Occasion</p>
-    <h2 class="section-title">The Event Is Yours.<br /><span class="gold">We Make It Shine.</span></h2>
-    <p style="opacity:0.75; max-width:580px; margin:0.8rem auto 0; font-size:1.05rem;">Whether it's an intimate gathering or a grand celebration, our team brings the same passion and precision to every event we touch.</p>
+    <p class="section-label" data-t="evt-label">We Serve Every Occasion</p>
+    <h2 class="section-title" data-t="evt-title">The Event Is Yours.<br /><span class="gold">We Make It Shine.</span></h2>
+    <p style="opacity:0.75; max-width:580px; margin:0.8rem auto 0; font-size:1.05rem;" data-t="evt-p">Whether it's an intimate gathering or a grand celebration, our team brings the same passion and precision to every event we touch.</p>
     <div class="event-types">
-      <span class="event-chip">&#128141; Weddings</span>
-      <span class="event-chip">&#127874; Birthday Parties</span>
-      <span class="event-chip">&#127970; Corporate Events</span>
-      <span class="event-chip">&#127891; Graduations</span>
-      <span class="event-chip">&#129395; Quincea&ntilde;eras</span>
-      <span class="event-chip">&#127908; Live Performances</span>
-      <span class="event-chip">&#127870; Gala Dinners</span>
-      <span class="event-chip">&#9962; Church Events</span>
-      <span class="event-chip">&#127882; Holiday Parties</span>
-      <span class="event-chip">&#127775; Any Celebration</span>
+      <span class="event-chip" data-t="chip-weddings">&#128141; Weddings</span>
+      <span class="event-chip" data-t="chip-bday">&#127874; Birthday Parties</span>
+      <span class="event-chip" data-t="chip-corp">&#127970; Corporate Events</span>
+      <span class="event-chip" data-t="chip-grad">&#127891; Graduations</span>
+      <span class="event-chip" data-t="chip-quince">&#129395; Quincea&ntilde;eras</span>
+      <span class="event-chip" data-t="chip-live">&#127908; Live Performances</span>
+      <span class="event-chip" data-t="chip-gala">&#127870; Gala Dinners</span>
+      <span class="event-chip" data-t="chip-church">&#9962; Church Events</span>
+      <span class="event-chip" data-t="chip-holiday">&#127882; Holiday Parties</span>
+      <span class="event-chip" data-t="chip-any">&#127775; Any Celebration</span>
     </div>
   </div>
 </section>
+
 <section class="section" id="why-us">
   <div class="container">
     <div class="section-header">
-      <p class="section-label">Why Choose M.G.P.</p>
-      <h2 class="section-title">We Don't Just Show Up &mdash; <span class="gold">We Deliver.</span></h2>
+      <p class="section-label" data-t="why-label">Why Choose M.G.P.</p>
+      <h2 class="section-title" data-t="why-title">We Don't Just Show Up &mdash; <span class="gold">We Deliver.</span></h2>
     </div>
     <div class="why-grid">
-      <div class="why-item"><div class="why-num">100%</div><h4>Full-Service</h4><p>AV, lighting, cameras, catering &mdash; one team, one call, zero stress.</p></div>
-      <div class="why-item"><div class="why-num">&#9889;</div><h4>Reliable &amp; On Time</h4><p>We arrive early, set up completely, and stay until the last guest leaves.</p></div>
-      <div class="why-item"><div class="why-num">&#127919;</div><h4>Custom Packages</h4><p>Pick exactly what you need &mdash; no bloated packages, no hidden fees.</p></div>
-      <div class="why-item"><div class="why-num">&#10024;</div><h4>Pro-Grade Quality</h4><p>Industry-standard equipment and trained staff at every single event.</p></div>
+      <div class="why-item"><div class="why-num">100%</div><h4 data-t="why1-h">Full-Service</h4><p data-t="why1-p">AV, lighting, cameras, catering &mdash; one team, one call, zero stress.</p></div>
+      <div class="why-item"><div class="why-num">&#9889;</div><h4 data-t="why2-h">Reliable &amp; On Time</h4><p data-t="why2-p">We arrive early, set up completely, and stay until the last guest leaves.</p></div>
+      <div class="why-item"><div class="why-num">&#127919;</div><h4 data-t="why3-h">Custom Packages</h4><p data-t="why3-p">Pick exactly what you need &mdash; no bloated packages, no hidden fees.</p></div>
+      <div class="why-item"><div class="why-num">&#10024;</div><h4 data-t="why4-h">Pro-Grade Quality</h4><p data-t="why4-p">Industry-standard equipment and trained staff at every single event.</p></div>
     </div>
   </div>
 </section>
+
 <section class="booking-section" id="book">
   <div class="container">
     <div class="section-header" style="text-align:center;">
-      <p class="section-label">Ready to Get Started?</p>
-      <h2 class="section-title">Book Your Event</h2>
-      <p class="section-sub" style="margin:0 auto;">Fill out the form below and we'll reach out within 24 hours with a custom quote.</p>
+      <p class="section-label" data-t="book-label">Ready to Get Started?</p>
+      <h2 class="section-title" data-t="book-title">Book Your Event</h2>
+      <p class="section-sub" style="margin:0 auto;" data-t="book-sub">Fill out the form below and we'll reach out within 24 hours with a custom quote.</p>
     </div>
     <div class="form-wrapper">
       <div id="successMsg" style="display:none; text-align:center; padding:2.5rem 1rem;">
         <div style="font-size:3rem; margin-bottom:1rem;">&#9989;</div>
-        <h3 style="color:#e8b84b; font-size:1.5rem; margin-bottom:0.6rem;">Booking Request Received!</h3>
-        <p style="opacity:0.8;">Thank you! We'll review your details and get back to you within 24 hours with a custom quote.</p>
+        <h3 style="color:#e8b84b; font-size:1.5rem; margin-bottom:0.6rem;" data-t="success-h">Booking Request Received!</h3>
+        <p style="opacity:0.8;" data-t="success-p">Thank you! We'll review your details and get back to you within 24 hours with a custom quote.</p>
       </div>
       <form id="bookingForm">
         <div class="form-grid">
-          <div><label for="fname">First Name *</label><input type="text" id="fname" name="First Name" required placeholder="Maria" /></div>
-          <div><label for="lname">Last Name *</label><input type="text" id="lname" name="Last Name" required placeholder="Garcia" /></div>
-          <div><label for="email">Email Address *</label><input type="email" id="email" name="email" required placeholder="you@example.com" /></div>
-          <div><label for="phone">Phone Number *</label><input type="tel" id="phone" name="Phone" required placeholder="(555) 000-0000" /></div>
+          <div><label for="fname" data-t="lbl-fname">First Name *</label><input type="text" id="fname" name="First Name" required placeholder="Maria" /></div>
+          <div><label for="lname" data-t="lbl-lname">Last Name *</label><input type="text" id="lname" name="Last Name" required placeholder="Garcia" /></div>
+          <div><label for="email" data-t="lbl-email">Email Address *</label><input type="email" id="email" name="email" required placeholder="you@example.com" /></div>
+          <div><label for="phone" data-t="lbl-phone">Phone Number *</label><input type="tel" id="phone" name="Phone" required placeholder="(555) 000-0000" /></div>
         </div>
         <hr class="form-divider" />
         <div class="form-grid">
-          <div><label for="event-type">Event Type *</label>
-            <select id="event-type" name="Event Type" required>
-              <option value="" disabled selected>Select event type&hellip;</option>
-              <option>Wedding</option><option>Birthday Party</option><option>Quincea&ntilde;era</option>
-              <option>Corporate Event</option><option>Graduation</option><option>Live Performance / Concert</option>
-              <option>Gala / Formal Dinner</option><option>Church Event</option><option>Holiday Party</option><option>Other</option>
+          <div>
+            <label for="event-type" data-t="lbl-evttype">Event Type *</label>
+            <select id="event-type" name="Event Type" required data-t="sel-evttype">
+              <option value="" disabled selected data-en="Select event type&hellip;" data-es="Selecciona el tipo de evento&hellip;">Select event type&hellip;</option>
+              <option data-en="Wedding" data-es="Boda">Wedding</option>
+              <option data-en="Birthday Party" data-es="Fiesta de Cumplea&ntilde;os">Birthday Party</option>
+              <option data-en="Quincea&ntilde;era" data-es="Quincea&ntilde;era">Quincea&ntilde;era</option>
+              <option data-en="Corporate Event" data-es="Evento Corporativo">Corporate Event</option>
+              <option data-en="Graduation" data-es="Graduaci&oacute;n">Graduation</option>
+              <option data-en="Live Performance / Concert" data-es="Presentaci&oacute;n en Vivo / Concierto">Live Performance / Concert</option>
+              <option data-en="Gala / Formal Dinner" data-es="Gala / Cena Formal">Gala / Formal Dinner</option>
+              <option data-en="Church Event" data-es="Evento de Iglesia">Church Event</option>
+              <option data-en="Holiday Party" data-es="Fiesta Navide&ntilde;a">Holiday Party</option>
+              <option data-en="Other" data-es="Otro">Other</option>
             </select>
           </div>
-          <div><label for="guests">Estimated Guest Count *</label>
-            <select id="guests" name="Guest Count" required>
-              <option value="" disabled selected>Select range&hellip;</option>
-              <option>Under 50</option><option>50 &ndash; 100</option><option>100 &ndash; 200</option>
-              <option>200 &ndash; 350</option><option>350 &ndash; 500</option><option>500+</option>
+          <div>
+            <label for="guests" data-t="lbl-guests">Estimated Guest Count *</label>
+            <select id="guests" name="Guest Count" required data-t="sel-guests">
+              <option value="" disabled selected data-en="Select range&hellip;" data-es="Selecciona el rango&hellip;">Select range&hellip;</option>
+              <option data-en="Under 50" data-es="Menos de 50">Under 50</option>
+              <option data-en="50 &ndash; 100" data-es="50 &ndash; 100">50 &ndash; 100</option>
+              <option data-en="100 &ndash; 200" data-es="100 &ndash; 200">100 &ndash; 200</option>
+              <option data-en="200 &ndash; 350" data-es="200 &ndash; 350">200 &ndash; 350</option>
+              <option data-en="350 &ndash; 500" data-es="350 &ndash; 500">350 &ndash; 500</option>
+              <option data-en="500+" data-es="500+">500+</option>
             </select>
           </div>
-          <div><label for="event-date">Event Date *</label><input type="date" id="event-date" name="Event Date" required /></div>
-          <div><label for="event-time">Start Time</label><input type="time" id="event-time" name="Start Time" /></div>
-          <div class="form-full"><label for="venue">Venue / Location *</label><input type="text" id="venue" name="Venue" required placeholder="Venue name and city" /></div>
+          <div><label for="event-date" data-t="lbl-date">Event Date *</label><input type="date" id="event-date" name="Event Date" required /></div>
+          <div><label for="event-time" data-t="lbl-time">Start Time</label><input type="time" id="event-time" name="Start Time" /></div>
+          <div class="form-full"><label for="venue" data-t="lbl-venue">Venue / Location *</label><input type="text" id="venue" name="Venue" required placeholder="Venue name and city" data-ph-en="Venue name and city" data-ph-es="Nombre del lugar y ciudad" /></div>
         </div>
         <hr class="form-divider" />
         <div class="services-check">
-          <label>Services Needed * (select all that apply)</label>
+          <label data-t="lbl-services">Services Needed * (select all that apply)</label>
           <div class="check-grid">
-            <label class="check-item"><input type="checkbox" name="Services" value="Sound &amp; AV Equipment" /><span>&#128266; Sound &amp; AV Equipment</span></label>
-            <label class="check-item"><input type="checkbox" name="Services" value="Lighting &amp; Stage Setup" /><span>&#128161; Lighting &amp; Stage Setup</span></label>
-            <label class="check-item"><input type="checkbox" name="Services" value="Camera &amp; Video Production" /><span>&#127909; Camera &amp; Video Production</span></label>
-            <label class="check-item"><input type="checkbox" name="Services" value="Professional AV Staff" /><span>&#128084; Professional AV Staff</span></label>
-            <label class="check-item"><input type="checkbox" name="Services" value="Full-Service Catering" /><span>&#127869; Full-Service Catering</span></label>
-            <label class="check-item"><input type="checkbox" name="Services" value="Complete Event Setup" /><span>&#127881; Complete Event Setup</span></label>
+            <label class="check-item"><input type="checkbox" name="Services" value="Sound &amp; AV Equipment" /><span data-t="c1-title">Sound &amp; AV Equipment</span></label>
+            <label class="check-item"><input type="checkbox" name="Services" value="Lighting &amp; Stage Setup" /><span data-t="c2-title">Lighting &amp; Stage Setup</span></label>
+            <label class="check-item"><input type="checkbox" name="Services" value="Camera &amp; Video Production" /><span data-t="c3-title">Camera &amp; Video Production</span></label>
+            <label class="check-item"><input type="checkbox" name="Services" value="Professional AV Staff" /><span data-t="c4-title">Professional AV Staff</span></label>
+            <label class="check-item"><input type="checkbox" name="Services" value="Full-Service Catering" /><span data-t="c5-title">Full-Service Catering</span></label>
+            <label class="check-item"><input type="checkbox" name="Services" value="Complete Event Setup" /><span data-t="c6-title">Complete Event Setup</span></label>
+            <label class="check-item"><input type="checkbox" name="Services" value="Tables, Chairs &amp; Tents" /><span data-t="c7-title">Tables, Chairs &amp; Tents</span></label>
           </div>
         </div>
         <hr class="form-divider" />
-        <div><label for="notes">Additional Details / Special Requests</label><textarea id="notes" name="Additional Notes" placeholder="Tell us more about your vision, any specific equipment, dietary restrictions, theme, etc."></textarea></div>
-        <div class="submit-row"><button type="submit" class="btn btn-gold">Send Booking Request &#9993;</button></div>
-        <p class="form-note">Submitting opens your email app with your details pre-filled.<br />We'll respond with a custom quote within 24 hours.</p>
+        <div><label for="notes" data-t="lbl-notes">Additional Details / Special Requests</label><textarea id="notes" name="Additional Notes" placeholder="Tell us more about your vision, any specific equipment, dietary restrictions, theme, etc." data-ph-en="Tell us more about your vision, any specific equipment, dietary restrictions, theme, etc." data-ph-es="Cu&eacute;ntanos m&aacute;s sobre tu visi&oacute;n, equipo espec&iacute;fico, restricciones alimenticias, tema, etc."></textarea></div>
+        <div class="submit-row"><button type="submit" class="btn btn-gold" data-t="btn-submit">Send Booking Request &#9993;</button></div>
+        <p class="form-note" data-t="form-note">Submitting opens your email app with your details pre-filled.<br />We'll respond with a custom quote within 24 hours.</p>
       </form>
     </div>
   </div>
 </section>
+
 <footer>
   <div class="container">
     <p><strong style="opacity:1;">M.G.P. AV Rental, Party Setup &amp; Catering</strong></p>
-    <p style="margin-top:0.4rem;">Making every event unforgettable &mdash; one celebration at a time.</p>
+    <p style="margin-top:0.4rem;" data-t="footer-tag">Making every event unforgettable &mdash; one celebration at a time.</p>
+    <p style="margin-top:0.5rem; font-size:0.83rem; color:#e8b84b; opacity:0.8;">&#127466;&#127480; Hablamos Espa&ntilde;ol &mdash; Nuestro equipo habla espa&ntilde;ol con gusto.</p>
   </div>
 </footer>
+
 <script>
-  function toggleCard(btn) { const expand = btn.nextElementSibling; btn.classList.toggle('open'); expand.classList.toggle('open'); }
-  const hamburger = document.getElementById('hamburger');
-  const mobileNav = document.getElementById('mobileNav');
-  hamburger.addEventListener('click', () => { hamburger.classList.toggle('open'); mobileNav.classList.toggle('open'); });
-  function closeNav() { hamburger.classList.remove('open'); mobileNav.classList.remove('open'); }
-  document.getElementById('bookingForm').addEventListener('submit', async function(e) {
+  const T = {
+    en: {
+      "nav-services": "Services",
+      "nav-events": "Events",
+      "nav-whyus": "Why Us",
+      "nav-contact": "Contact Us",
+      "nav-book": "Book Now",
+      "hero-label": "M.G.P. AV Rental, Party Setup &amp; Catering",
+      "hero-h1": "Make your event <span class=\"gold\">unforgettable!</span>",
+      "hero-p": "From crystal-clear sound and stunning visuals to beautifully captured memories and expertly catered cuisine &mdash; we bring the full experience to your wedding, party, corporate event, and beyond.",
+      "hero-btn-book": "Book Your Event",
+      "hero-btn-services": "Explore Services",
+      "svc-label": "What We Offer",
+      "svc-title": "Everything Your Event Needs, <span class=\"gold\">All In One Place</span>",
+      "svc-sub": "We handle the technical side so you can focus on enjoying every moment.",
+      "c1-title": "Sound &amp; AV Equipment",
+      "c1-p": "Professional-grade gear for any venue size &mdash; crystal-clear audio and stunning visuals.",
+      "c1-ul": "<li>Line-array &amp; PA speakers</li><li>Wireless microphones</li><li>HD projectors &amp; screens</li><li>Mixing boards &amp; monitors</li>",
+      "c1-full-ul": "<li>Line-array &amp; PA speaker systems</li><li>Powered subwoofers</li><li>Wireless handheld &amp; lapel microphones</li><li>HD &amp; 4K projectors</li><li>Projection screens (various sizes)</li><li>Professional mixing boards</li><li>Stage monitors &amp; floor wedges</li><li>DI boxes &amp; signal processors</li><li>All cabling &amp; rigging hardware</li>",
+      "c2-title": "Lighting &amp; Stage Setup",
+      "c2-p": "Set the perfect atmosphere with dynamic lighting rigs, uplighting, and stage design.",
+      "c2-ul": "<li>LED wash &amp; moving heads</li><li>Dance floor uplighting</li><li>Gobo &amp; custom monograms</li><li>Stage &amp; truss construction</li>",
+      "c2-full-ul": "<li>LED moving head wash &amp; beam fixtures</li><li>Par can uplighting (all colors)</li><li>Truss systems &amp; rigging</li><li>Gobo projectors &amp; custom monograms</li><li>Haze &amp; fog machines</li><li>DMX lighting controllers</li><li>Dance floor pin spotlights</li><li>Stage platforms &amp; stairs</li><li>Pipe &amp; drape backdrops</li>",
+      "c3-title": "Camera &amp; Video Production",
+      "c3-p": "Capture every priceless moment in stunning detail &mdash; from live streaming to full event coverage.",
+      "c3-ul": "<li>Multi-camera setups</li><li>Live event streaming</li><li>Ceremony &amp; reception coverage</li><li>Highlight reel editing</li>",
+      "c3-full-ul": "<li>DSLR &amp; mirrorless cinema cameras</li><li>Fluid head tripods &amp; sliders</li><li>Motorized gimbals &amp; stabilizers</li><li>Live streaming encoders</li><li>Video switchers &amp; monitors</li><li>Wireless video transmission</li><li>External audio recorders</li><li>Drone footage (where permitted)</li><li>Post-production highlight reel editing</li>",
+      "c4-title": "Professional AV Staff",
+      "c4-p": "Our seasoned technicians manage every detail, so your event runs without a hitch.",
+      "c4-ul": "<li>Lead AV technician on-site</li><li>Sound engineers</li><li>Lighting operators</li><li>Camera operators</li>",
+      "c4-full-ul": "<li>Lead AV technician (on-site coordinator)</li><li>Front-of-house sound engineer</li><li>Monitor engineer</li><li>Lighting programmer &amp; operator</li><li>Camera operators (1&ndash;3 depending on coverage)</li><li>Live stream technician</li><li>Stage manager</li><li>Setup &amp; breakdown crew</li>",
+      "c5-title": "Full-Service Catering",
+      "c5-p": "Elevate your event with chef-crafted menus tailored to your taste and guest count.",
+      "c5-ul": "<li>Custom menu planning</li><li>Buffet &amp; plated service</li><li>Cocktail hour appetizers</li><li>Dessert stations &amp; cake</li>",
+      "c5-full-ul": "<li>Custom menu consultation &amp; planning</li><li>Buffet-style service</li><li>Plated sit-down dining</li><li>Cocktail hour passed appetizers</li><li>Carving &amp; action stations</li><li>Dessert tables &amp; cake service</li><li>Non-alcoholic beverage service</li><li>Serving staff &amp; setup</li><li>Rentals: chafing dishes, linens, serving ware</li>",
+      "c6-title": "Complete Event Setup",
+      "c6-p": "We transform any space into the venue of your dreams &mdash; setup, teardown, all included.",
+      "c6-ul": "<li>Full venue transformation</li><li>D&eacute;cor &amp; table settings</li><li>Backdrop &amp; photo areas</li><li>Post-event breakdown</li>",
+      "c6-full-ul": "<li>Full venue transformation &amp; layout</li><li>Table centerpieces &amp; floral arrangements</li><li>Linen, chair covers &amp; sashes</li><li>Custom backdrops &amp; photo walls</li><li>Photo booth area setup</li><li>Entrance &amp; aisle d&eacute;cor</li><li>Balloon arrangements &amp; arches</li><li>Signage &amp; name cards</li><li>Complete post-event teardown &amp; cleanup</li>",
+      "full-list": "Full Equipment List",
+      "staff-list": "Our Staff Includes",
+      "c7-title": "Tables, Chairs &amp; Tents",
+      "c7-p": "Complete your event space with our furniture and shelter rentals &mdash; delivered, set up, and broken down for you.",
+      "c7-ul": "<li>Folding &amp; round tables</li><li>Chiavari &amp; folding chairs</li><li>Event tents &amp; canopies</li><li>Delivery &amp; setup included</li>",
+      "c7-full-ul": "<li>6 ft &amp; 8 ft folding tables</li><li>60&quot; &amp; 72&quot; round tables</li><li>Chiavari chairs (gold, silver, white, black)</li><li>Padded folding chairs</li><li>20&times;20 to 40&times;60 event tents</li><li>Pop-up canopies</li><li>Delivery, setup &amp; breakdown included</li><li>Available with or without other M.G.P. services</li>",
+      "rental-label": "Add-On Rental",
+      "rental-title": "Tables, Chairs &amp; Tents — <span class=\"gold\">Delivered &amp; Set Up</span>",
+      "rental-p": "Don't stress about sourcing furniture or shelter. We deliver folding tables, round tables, Chiavari chairs, folding chairs, event tents, and canopies — and we handle the full setup and breakdown so your venue is ready when you arrive.",
+      "rental-chip1": "&#128760; Folding &amp; Round Tables",
+      "rental-chip2": "&#129691; Chiavari &amp; Folding Chairs",
+      "rental-chip3": "&#9981; Event Tents &amp; Canopies",
+      "rental-chip4": "&#128666; Delivery &amp; Setup Included",
+      "rental-cta": "Get a Rental Quote",
+      "whats-included": "What's Included",
+      "ph-replace": "Replace with your photo",
+      "evt-label": "We Serve Every Occasion",
+      "evt-title": "The Event Is Yours.<br /><span class=\"gold\">We Make It Shine.</span>",
+      "evt-p": "Whether it's an intimate gathering or a grand celebration, our team brings the same passion and precision to every event we touch.",
+      "chip-weddings": "&#128141; Weddings",
+      "chip-bday": "&#127874; Birthday Parties",
+      "chip-corp": "&#127970; Corporate Events",
+      "chip-grad": "&#127891; Graduations",
+      "chip-quince": "&#129395; Quincea&ntilde;eras",
+      "chip-live": "&#127908; Live Performances",
+      "chip-gala": "&#127870; Gala Dinners",
+      "chip-church": "&#9962; Church Events",
+      "chip-holiday": "&#127882; Holiday Parties",
+      "chip-any": "&#127775; Any Celebration",
+      "why-label": "Why Choose M.G.P.",
+      "why-title": "We Don't Just Show Up &mdash; <span class=\"gold\">We Deliver.</span>",
+      "why1-h": "Full-Service",
+      "why1-p": "AV, lighting, cameras, catering &mdash; one team, one call, zero stress.",
+      "why2-h": "Reliable &amp; On Time",
+      "why2-p": "We arrive early, set up completely, and stay until the last guest leaves.",
+      "why3-h": "Custom Packages",
+      "why3-p": "Pick exactly what you need &mdash; no bloated packages, no hidden fees.",
+      "why4-h": "Pro-Grade Quality",
+      "why4-p": "Industry-standard equipment and trained staff at every single event.",
+      "book-label": "Ready to Get Started?",
+      "book-title": "Book Your Event",
+      "book-sub": "Fill out the form below and we'll reach out within 24 hours with a custom quote.",
+      "success-h": "Booking Request Received!",
+      "success-p": "Thank you! We'll review your details and get back to you within 24 hours with a custom quote.",
+      "lbl-fname": "First Name *",
+      "lbl-lname": "Last Name *",
+      "lbl-email": "Email Address *",
+      "lbl-phone": "Phone Number *",
+      "lbl-evttype": "Event Type *",
+      "lbl-guests": "Estimated Guest Count *",
+      "lbl-date": "Event Date *",
+      "lbl-time": "Start Time",
+      "lbl-venue": "Venue / Location *",
+      "lbl-services": "Services Needed * (select all that apply)",
+      "lbl-notes": "Additional Details / Special Requests",
+      "btn-submit": "Send Booking Request &#9993;",
+      "form-note": "Submitting opens your email app with your details pre-filled.<br />We'll respond with a custom quote within 24 hours.",
+      "footer-tag": "Making every event unforgettable &mdash; one celebration at a time.",
+      "modal-title": "Contact Us",
+      "modal-p": "Contact us with any concerns or questions",
+      "modal-copy": "Copy Email"
+    },
+    es: {
+      "nav-services": "Servicios",
+      "nav-events": "Eventos",
+      "nav-whyus": "&#191;Por Qu&eacute;?",
+      "nav-contact": "Cont&aacute;ctenos",
+      "nav-book": "Reservar",
+      "hero-label": "M.G.P. Alquiler AV, Montaje de Fiestas y Catering",
+      "hero-h1": "&#161;Haz tu evento <span class=\"gold\">inolvidable!</span>",
+      "hero-p": "Desde sonido cristalino y visuales impresionantes hasta recuerdos bellamente capturados y gastronom&iacute;a experta &mdash; brindamos la experiencia completa para tu boda, fiesta, evento corporativo y m&aacute;s.",
+      "hero-btn-book": "Reserva Tu Evento",
+      "hero-btn-services": "Ver Servicios",
+      "svc-label": "Lo Que Ofrecemos",
+      "svc-title": "Todo Lo Que Tu Evento Necesita, <span class=\"gold\">En Un Solo Lugar</span>",
+      "svc-sub": "Nos encargamos de la parte t&eacute;cnica para que puedas disfrutar cada momento.",
+      "c1-title": "Sonido y Equipo AV",
+      "c1-p": "Equipo de nivel profesional para cualquier venue &mdash; audio cristalino y visuales impresionantes.",
+      "c1-ul": "<li>Parlantes de l&iacute;nea de arreglo y PA</li><li>Micr&oacute;fonos inal&aacute;mbricos</li><li>Proyectores HD y pantallas</li><li>Mesas de mezcla y monitores</li>",
+      "c1-full-ul": "<li>Sistemas de parlantes PA y l&iacute;nea de arreglo</li><li>Subwoofers activos</li><li>Micr&oacute;fonos inal&aacute;mbricos de mano y solapa</li><li>Proyectores HD y 4K</li><li>Pantallas de proyecci&oacute;n (varios tama&ntilde;os)</li><li>Mesas de mezcla profesionales</li><li>Monitores de escenario</li><li>Cajas DI y procesadores de se&ntilde;al</li><li>Todo el cableado y hardware de montaje</li>",
+      "c2-title": "Iluminaci&oacute;n y Escenario",
+      "c2-p": "Crea la atm&oacute;sfera perfecta con iluminaci&oacute;n din&aacute;mica, uplighting y dise&ntilde;o de escenario.",
+      "c2-ul": "<li>LED wash y cabezas m&oacute;viles</li><li>Uplighting para pista de baile</li><li>Gobo y monogramas personalizados</li><li>Construcci&oacute;n de escenario y truss</li>",
+      "c2-full-ul": "<li>Fixtures LED de cabeza m&oacute;vil wash y beam</li><li>Uplighting par can (todos los colores)</li><li>Sistemas de truss y montaje</li><li>Proyectores gobo y monogramas</li><li>M&aacute;quinas de niebla y humo</li><li>Controladores de iluminaci&oacute;n DMX</li><li>Focos de pista de baile</li><li>Plataformas de escenario y escaleras</li><li>Fondos de pipe &amp; drape</li>",
+      "c3-title": "C&aacute;mara y Producci&oacute;n de Video",
+      "c3-p": "Capturamos cada momento invaluable en detalle impresionante &mdash; desde transmisi&oacute;n en vivo hasta cobertura completa.",
+      "c3-ul": "<li>Configuraciones multi-c&aacute;mara</li><li>Transmisi&oacute;n en vivo del evento</li><li>Cobertura de ceremonia y recepci&oacute;n</li><li>Edici&oacute;n de video destacado</li>",
+      "c3-full-ul": "<li>C&aacute;maras DSLR y sin espejo de cine</li><li>Tr&iacute;podes de cabeza fluida y sliders</li><li>Gimbals motorizados y estabilizadores</li><li>Encoders de transmisi&oacute;n en vivo</li><li>Switches de video y monitores</li><li>Transmisi&oacute;n de video inal&aacute;mbrica</li><li>Grabadoras de audio externas</li><li>Tomas con drone (donde est&eacute; permitido)</li><li>Edici&oacute;n de video destacado en postproducci&oacute;n</li>",
+      "c4-title": "Personal AV Profesional",
+      "c4-p": "Nuestros t&eacute;cnicos experimentados manejan cada detalle para que tu evento fluya sin contratiempos.",
+      "c4-ul": "<li>T&eacute;cnico AV principal en sitio</li><li>Ingenieros de sonido</li><li>Operadores de iluminaci&oacute;n</li><li>Operadores de c&aacute;mara</li>",
+      "c4-full-ul": "<li>T&eacute;cnico AV principal (coordinador en sitio)</li><li>Ingeniero de sonido front-of-house</li><li>Ingeniero de monitores</li><li>Programador y operador de iluminaci&oacute;n</li><li>Operadores de c&aacute;mara (1&ndash;3 seg&uacute;n cobertura)</li><li>T&eacute;cnico de transmisi&oacute;n en vivo</li><li>Director de escenario</li><li>Equipo de montaje y desmontaje</li>",
+      "c5-title": "Catering de Servicio Completo",
+      "c5-p": "Eleva tu evento con men&uacute;s elaborados por chef adaptados a tu gusto y n&uacute;mero de invitados.",
+      "c5-ul": "<li>Planificaci&oacute;n de men&uacute; personalizado</li><li>Servicio buffet y platos servidos</li><li>Aperitivos para c&oacute;ctel</li><li>Estaciones de postres y pastel</li>",
+      "c5-full-ul": "<li>Consulta y planificaci&oacute;n de men&uacute; personalizado</li><li>Servicio estilo buffet</li><li>Cena sentada con platos servidos</li><li>Aperitivos pasados en hora de c&oacute;ctel</li><li>Estaciones de trinche y acci&oacute;n</li><li>Mesas de postres y servicio de pastel</li><li>Servicio de bebidas sin alcohol</li><li>Personal de servicio y montaje</li><li>Alquiler: bandejas, manteler&iacute;a y utensilios</li>",
+      "c7-title": "Mesas, Sillas y Carpas",
+      "c7-p": "Completa tu espacio con nuestras rentas de mobiliario y refugio &mdash; entregadas, montadas y desmontadas por nosotros.",
+      "c7-ul": "<li>Mesas plegables y redondas</li><li>Sillas Chiavari y plegables</li><li>Carpas y toldos para eventos</li><li>Entrega y montaje incluidos</li>",
+      "c7-full-ul": "<li>Mesas plegables de 6 y 8 pies</li><li>Mesas redondas de 60&quot; y 72&quot;</li><li>Sillas Chiavari (doradas, plateadas, blancas, negras)</li><li>Sillas plegables acolchadas</li><li>Carpas de 20&times;20 hasta 40&times;60</li><li>Gazebos pop-up</li><li>Entrega, montaje y desmontaje incluidos</li><li>Disponible con o sin otros servicios de M.G.P.</li>",
+      "rental-label": "Renta Adicional",
+      "rental-title": "Mesas, Sillas y Carpas — <span class=\"gold\">Entregadas y Montadas</span>",
+      "rental-p": "No te preocupes por conseguir mobiliario o refugio. Entregamos mesas plegables, mesas redondas, sillas Chiavari, sillas plegables, carpas y toldos &mdash; y nos encargamos del montaje y desmontaje completo.",
+      "rental-chip1": "&#128760; Mesas Plegables y Redondas",
+      "rental-chip2": "&#129691; Sillas Chiavari y Plegables",
+      "rental-chip3": "&#9981; Carpas y Toldos",
+      "rental-chip4": "&#128666; Entrega y Montaje Incluidos",
+      "rental-cta": "Solicitar Cotización de Renta",
+      "c6-title": "Montaje Completo del Evento",
+      "c6-p": "Transformamos cualquier espacio en el venue de tus sue&ntilde;os &mdash; montaje y desmontaje incluidos.",
+      "c6-ul": "<li>Transformaci&oacute;n completa del venue</li><li>Decoraci&oacute;n y montaje de mesas</li><li>&Aacute;reas de fondo y fotos</li><li>Desmontaje post-evento</li>",
+      "c6-full-ul": "<li>Transformaci&oacute;n y distribuci&oacute;n completa del venue</li><li>Centros de mesa y arreglos florales</li><li>Manteler&iacute;a, fundas y fajas para sillas</li><li>Fondos personalizados y paredes de fotos</li><li>Montaje de &aacute;rea para fotobooth</li><li>Decoraci&oacute;n de entrada y pasillo</li><li>Arreglos y arcos de globos</li><li>Se&ntilde;alizaci&oacute;n y tarjetas de nombre</li><li>Desmontaje y limpieza completa post-evento</li>",
+      "full-list": "Lista Completa de Equipo",
+      "staff-list": "Nuestro Personal Incluye",
+      "whats-included": "Qu&eacute; Incluye",
+      "ph-replace": "Reemplaza con tu foto",
+      "evt-label": "Servimos Toda Ocasi&oacute;n",
+      "evt-title": "El Evento Es Tuyo.<br /><span class=\"gold\">Nosotros Lo Hacemos Brillar.</span>",
+      "evt-p": "Ya sea una reuni&oacute;n &iacute;ntima o una gran celebraci&oacute;n, nuestro equipo aporta la misma pasi&oacute;n y precisi&oacute;n a cada evento.",
+      "chip-weddings": "&#128141; Bodas",
+      "chip-bday": "&#127874; Fiestas de Cumplea&ntilde;os",
+      "chip-corp": "&#127970; Eventos Corporativos",
+      "chip-grad": "&#127891; Graduaciones",
+      "chip-quince": "&#129395; Quincea&ntilde;eras",
+      "chip-live": "&#127908; Presentaciones en Vivo",
+      "chip-gala": "&#127870; Cenas de Gala",
+      "chip-church": "&#9962; Eventos de Iglesia",
+      "chip-holiday": "&#127882; Fiestas Navide&ntilde;as",
+      "chip-any": "&#127775; Cualquier Celebraci&oacute;n",
+      "why-label": "&#191;Por Qu&eacute; Elegir M.G.P.?",
+      "why-title": "No Solo Aparecemos &mdash; <span class=\"gold\">Cumplimos.</span>",
+      "why1-h": "Servicio Completo",
+      "why1-p": "AV, iluminaci&oacute;n, c&aacute;maras, catering &mdash; un equipo, una llamada, cero estr&eacute;s.",
+      "why2-h": "Confiables y Puntuales",
+      "why2-p": "Llegamos temprano, montamos todo y nos quedamos hasta que el &uacute;ltimo invitado se vaya.",
+      "why3-h": "Paquetes Personalizados",
+      "why3-p": "Elige exactamente lo que necesitas &mdash; sin paquetes inflados, sin cargos ocultos.",
+      "why4-h": "Calidad Profesional",
+      "why4-p": "Equipos de nivel industrial y personal capacitado en cada evento.",
+      "book-label": "&#191;Listo Para Comenzar?",
+      "book-title": "Reserva Tu Evento",
+      "book-sub": "Completa el formulario y nos comunicaremos en 24 horas con una cotizaci&oacute;n personalizada.",
+      "success-h": "&#161;Solicitud de Reserva Recibida!",
+      "success-p": "&#161;Gracias! Revisaremos tus detalles y te responderemos en 24 horas con una cotizaci&oacute;n personalizada.",
+      "lbl-fname": "Nombre *",
+      "lbl-lname": "Apellido *",
+      "lbl-email": "Correo Electr&oacute;nico *",
+      "lbl-phone": "N&uacute;mero de Tel&eacute;fono *",
+      "lbl-evttype": "Tipo de Evento *",
+      "lbl-guests": "N&uacute;mero Estimado de Invitados *",
+      "lbl-date": "Fecha del Evento *",
+      "lbl-time": "Hora de Inicio",
+      "lbl-venue": "Lugar / Ubicaci&oacute;n *",
+      "lbl-services": "Servicios Necesarios * (selecciona todos los que apliquen)",
+      "lbl-notes": "Detalles Adicionales / Solicitudes Especiales",
+      "btn-submit": "Enviar Solicitud de Reserva &#9993;",
+      "form-note": "Al enviar se abre tu correo con los detalles pre-llenados.<br />Te responderemos con una cotizaci&oacute;n en 24 horas.",
+      "footer-tag": "Haciendo cada evento inolvidable &mdash; una celebraci&oacute;n a la vez.",
+      "modal-title": "Cont&aacute;ctenos",
+      "modal-p": "Cont&aacute;ctenos con cualquier pregunta o inquietud",
+      "modal-copy": "Copiar Correo"
+    }
+  };
+
+  let currentLang = "en";
+
+  function toggleLanguage() {
+    currentLang = currentLang === "en" ? "es" : "en";
+    // Translate all data-t elements
+    document.querySelectorAll("[data-t]").forEach(function(el) {
+      const key = el.getAttribute("data-t");
+      if (T[currentLang][key] !== undefined) {
+        el.innerHTML = T[currentLang][key];
+      }
+    });
+    // Translate select options
+    document.querySelectorAll("option[data-en]").forEach(function(opt) {
+      opt.innerHTML = opt.getAttribute("data-" + currentLang);
+    });
+    // Translate placeholders
+    document.querySelectorAll("[data-ph-en]").forEach(function(el) {
+      el.placeholder = el.getAttribute("data-ph-" + currentLang);
+    });
+    // Update toggle button — always in English so anyone can find it
+    const btn = document.getElementById("langToggleBtn");
+    btn.textContent = currentLang === "en" ? "Ver en Español" : "View in English";
+    // Update html lang attribute
+    document.documentElement.lang = currentLang;
+  }
+
+  function toggleCard(btn) { const expand = btn.nextElementSibling; btn.classList.toggle("open"); expand.classList.toggle("open"); }
+  const hamburger = document.getElementById("hamburger");
+  const mobileNav = document.getElementById("mobileNav");
+  hamburger.addEventListener("click", function() { hamburger.classList.toggle("open"); mobileNav.classList.toggle("open"); });
+  function closeNav() { hamburger.classList.remove("open"); mobileNav.classList.remove("open"); }
+  function openContactModal() { document.getElementById("contactModal").classList.add("open"); }
+  function closeContactModal() { document.getElementById("contactModal").classList.remove("open"); }
+  document.getElementById("contactModal").addEventListener("click", function(e) { if (e.target === this) closeContactModal(); });
+  function copyEmail() {
+    navigator.clipboard.writeText("mgpavcateringbooking@gmail.com").then(function() {
+      const btn = document.getElementById("copyBtn");
+      const prev = btn.innerHTML;
+      btn.textContent = currentLang === "es" ? "✓ Copiado!" : "✓ Copied!";
+      setTimeout(function() { btn.innerHTML = prev; }, 2000);
+    });
+  }
+  document.getElementById("bookingForm").addEventListener("submit", async function(e) {
     e.preventDefault();
-    const checked = [...document.querySelectorAll('input[name="Services"]:checked')];
-    if (checked.length === 0) { alert('Please select at least one service.'); return; }
-    const btn = this.querySelector('button[type="submit"]');
-    btn.textContent = 'Sending…'; btn.disabled = true;
+    const checked = [...document.querySelectorAll("input[name='Services']:checked")];
+    if (checked.length === 0) { alert(currentLang === "es" ? "Por favor selecciona al menos un servicio." : "Please select at least one service."); return; }
+    const btn = this.querySelector("button[type='submit']");
+    btn.textContent = currentLang === "es" ? "Enviando…" : "Sending…"; btn.disabled = true;
     const data = new FormData(this);
     try {
-      const res = await fetch('https://formspree.io/f/xzdlbpeo', { method: 'POST', body: data, headers: { 'Accept': 'application/json' } });
-      if (res.ok) { document.getElementById('bookingForm').style.display = 'none'; document.getElementById('successMsg').style.display = 'block'; }
-      else { btn.textContent = 'Send Booking Request ✉️'; btn.disabled = false; alert('Something went wrong. Please try again or email us directly at mpgavcateringbooking@gmail.com'); }
-    } catch { btn.textContent = 'Send Booking Request ✉️'; btn.disabled = false; alert('Something went wrong. Please try again or email us directly at mpgavcateringbooking@gmail.com'); }
+      const res = await fetch("https://formspree.io/f/xzdlbpeo", { method: "POST", body: data, headers: { "Accept": "application/json" } });
+      if (res.ok) { document.getElementById("bookingForm").style.display = "none"; document.getElementById("successMsg").style.display = "block"; }
+      else { btn.innerHTML = T[currentLang]["btn-submit"]; btn.disabled = false; alert("Something went wrong. Please try again or email us directly at mgpavcateringbooking@gmail.com"); }
+    } catch { btn.innerHTML = T[currentLang]["btn-submit"]; btn.disabled = false; alert("Something went wrong. Please try again or email us directly at mgpavcateringbooking@gmail.com"); }
   });
 </script>
 </body>
