@@ -103,6 +103,39 @@
     .modal-close { position: absolute; top: 0.9rem; right: 1rem; background: none; border: none; color: #e8e8f0; font-size: 1.5rem; cursor: pointer; opacity: 0.6; line-height: 1; transition: opacity 0.2s; }
     .modal-close:hover { opacity: 1; }
     @media (max-width: 640px) { .form-grid { grid-template-columns: 1fr; } .form-wrapper { padding: 2rem 1.2rem; } .nav-links { display: none; } .hamburger { display: flex; } }
+
+    /* Gallery */
+    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem; }
+    .gallery-grid img { width: 100%; height: 220px; object-fit: cover; border-radius: 6px; display: block; transition: transform 0.3s; }
+    .gallery-grid img:hover { transform: scale(1.03); }
+    .before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2.5rem; }
+    .ba-panel { position: relative; border-radius: 8px; overflow: hidden; }
+    .ba-panel img { width: 100%; height: 260px; object-fit: cover; display: block; }
+    .ba-label { position: absolute; top: 0.75rem; left: 0.75rem; background: rgba(10,10,15,0.82); color: #e8b84b; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; padding: 0.3rem 0.7rem; border-radius: 4px; text-transform: uppercase; }
+    /* Packages */
+    .packages-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+    .pkg-card { background: #13131e; border: 1px solid rgba(232,184,75,0.15); border-radius: 10px; padding: 2rem 1.5rem; display: flex; flex-direction: column; position: relative; transition: transform 0.2s, box-shadow 0.2s; }
+    .pkg-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(232,184,75,0.12); }
+    .pkg-card.featured { border-color: #e8b84b; box-shadow: 0 4px 24px rgba(232,184,75,0.18); }
+    .pkg-badge { position: absolute; top: -0.75rem; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg,#e8b84b,#c9922a); color: #0a0a0f; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; padding: 0.25rem 0.9rem; border-radius: 20px; white-space: nowrap; text-transform: uppercase; }
+    .pkg-name { font-size: 1.3rem; font-weight: 800; color: #e8b84b; margin-bottom: 0.4rem; }
+    .pkg-sub { font-size: 0.9rem; opacity: 0.65; margin-bottom: 1.2rem; }
+    .pkg-list { list-style: none; flex: 1; margin-bottom: 1.5rem; }
+    .pkg-list li { padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 0.92rem; display: flex; align-items: flex-start; gap: 0.5rem; }
+    .pkg-list li::before { content: "✓"; color: #e8b84b; font-weight: 700; flex-shrink: 0; }
+    /* Testimonials */
+    .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+    .testi-card { background: #13131e; border: 1px solid rgba(232,184,75,0.12); border-radius: 10px; padding: 1.75rem 1.5rem; }
+    .testi-stars { color: #e8b84b; font-size: 1rem; margin-bottom: 0.75rem; letter-spacing: 0.1em; }
+    .testi-quote { font-size: 0.97rem; line-height: 1.7; opacity: 0.88; margin-bottom: 1.2rem; font-style: italic; }
+    .testi-author { display: flex; align-items: center; gap: 0.75rem; }
+    .testi-avatar { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg,#e8b84b,#c9922a); display: flex; align-items: center; justify-content: center; font-weight: 800; color: #0a0a0f; font-size: 0.95rem; flex-shrink: 0; }
+    .testi-name { font-weight: 700; font-size: 0.93rem; }
+    .testi-event { font-size: 0.8rem; opacity: 0.55; }
+    /* Urgency strip */
+    .urgency-strip { background: linear-gradient(135deg,#1e1408,#2a1c08); border-top: 1px solid rgba(232,184,75,0.3); border-bottom: 1px solid rgba(232,184,75,0.3); padding: 0.85rem 1.5rem; text-align: center; font-size: 0.95rem; }
+    .urgency-strip span { color: #e8b84b; font-weight: 700; }
+    @media(max-width:700px){ .gallery-grid { grid-template-columns: repeat(2,1fr); } .before-after { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -283,6 +316,35 @@
   </div>
 </section>
 
+
+<section class="section" id="gallery">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label" data-t="gal-label">Our Work</p>
+      <h2 class="section-title" data-t="gal-title">See the <span class="gold">M.G.P. Difference</span></h2>
+      <p class="section-sub" data-t="gal-sub">Real setups. Real events. Every detail handled by our team.</p>
+    </div>
+    <div class="gallery-grid">
+      <img src="https://placehold.co/480x220/13131e/e8b84b?text=Your+Event+Photo+1" alt="Event setup 1" />
+      <img src="https://placehold.co/480x220/13131e/e8b84b?text=Your+Event+Photo+2" alt="Event setup 2" />
+      <img src="https://placehold.co/480x220/13131e/e8b84b?text=Your+Event+Photo+3" alt="Event setup 3" />
+      <img src="https://placehold.co/480x220/13131e/e8b84b?text=Your+Event+Photo+4" alt="Event setup 4" />
+      <img src="https://placehold.co/480x220/13131e/e8b84b?text=Your+Event+Photo+5" alt="Event setup 5" />
+      <img src="https://placehold.co/480x220/13131e/e8b84b?text=Your+Event+Photo+6" alt="Event setup 6" />
+    </div>
+    <div class="before-after">
+      <div class="ba-panel">
+        <span class="ba-label" data-t="ba-before">Before</span>
+        <img src="https://placehold.co/700x260/0a0a0f/555555?text=Empty+Venue+Photo" alt="Empty venue" />
+      </div>
+      <div class="ba-panel">
+        <span class="ba-label" data-t="ba-after">After M.G.P.</span>
+        <img src="https://placehold.co/700x260/13131e/e8b84b?text=Transformed+Venue+Photo" alt="Transformed venue" />
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="events-banner" id="events">
   <div class="container">
     <p class="section-label" data-t="evt-label">We Serve Every Occasion</p>
@@ -317,6 +379,117 @@
     </div>
   </div>
 </section>
+
+
+<section class="section" id="packages">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label" data-t="pkg-label">What We Offer</p>
+      <h2 class="section-title" data-t="pkg-title">Simple Packages, <span class="gold">Zero Surprises</span></h2>
+      <p class="section-sub" data-t="pkg-sub">Every package includes delivery, setup, and breakdown. Mix and match services to build your perfect event.</p>
+    </div>
+    <div class="packages-grid">
+
+      <div class="pkg-card">
+        <p class="pkg-name" data-t="pkg1-name">Essential</p>
+        <p class="pkg-sub" data-t="pkg1-sub">Perfect for smaller gatherings &amp; focused AV needs</p>
+        <ul class="pkg-list" data-t="pkg1-list">
+          <li>Sound &amp; AV Equipment</li>
+          <li>1 Lead AV Technician on-site</li>
+          <li>Wireless microphones &amp; speakers</li>
+          <li>Setup &amp; breakdown included</li>
+          <li>Up to 4 hours of coverage</li>
+        </ul>
+        <a href="#book" class="btn btn-outline" style="text-align:center;" data-t="pkg-cta">Get a Quote</a>
+      </div>
+
+      <div class="pkg-card featured">
+        <span class="pkg-badge" data-t="pkg2-badge">Most Popular</span>
+        <p class="pkg-name" data-t="pkg2-name">Celebration</p>
+        <p class="pkg-sub" data-t="pkg2-sub">Our most popular choice for weddings &amp; quinceañeras</p>
+        <ul class="pkg-list" data-t="pkg2-list">
+          <li>Sound &amp; AV Equipment</li>
+          <li>Lighting &amp; Stage Setup</li>
+          <li>Professional AV Staff</li>
+          <li>Tables, chairs &amp; event tents</li>
+          <li>Full venue setup &amp; breakdown</li>
+          <li>Up to 8 hours of coverage</li>
+        </ul>
+        <a href="#book" class="btn btn-gold" style="text-align:center;" data-t="pkg-cta">Get a Quote</a>
+      </div>
+
+      <div class="pkg-card">
+        <p class="pkg-name" data-t="pkg3-name">Full Experience</p>
+        <p class="pkg-sub" data-t="pkg3-sub">Everything M.G.P. has to offer — all under one roof</p>
+        <ul class="pkg-list" data-t="pkg3-list">
+          <li>Sound &amp; AV Equipment</li>
+          <li>Lighting &amp; Stage Setup</li>
+          <li>Camera &amp; Video Production</li>
+          <li>Full-Service Catering</li>
+          <li>Professional AV Staff</li>
+          <li>Tables, chairs &amp; event tents</li>
+          <li>Complete venue transformation</li>
+          <li>Unlimited hours of coverage</li>
+        </ul>
+        <a href="#book" class="btn btn-outline" style="text-align:center;" data-t="pkg-cta">Get a Quote</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="testimonials" style="padding-top: 0;">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label" data-t="testi-label">What Clients Say</p>
+      <h2 class="section-title" data-t="testi-title">Events They'll <span class="gold">Never Forget</span></h2>
+    </div>
+    <div class="testimonials-grid">
+
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote" data-t="t1-q">"M.G.P. made our daughter's quinceañera absolutely magical. The lighting, the sound, the setup — everything was flawless. Our guests couldn't stop talking about it. We couldn't have asked for a better team."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">RL</div>
+          <div>
+            <p class="testi-name" data-t="t1-name">Rosa &amp; Luis M.</p>
+            <p class="testi-event" data-t="t1-event">Quinceañera · 200 Guests</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote" data-t="t2-q">"We hired M.G.P. for our wedding and they went above and beyond. The catering was incredible, the AV setup was professional, and they handled everything so we didn't have to worry about a single thing on our big day."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">JC</div>
+          <div>
+            <p class="testi-name" data-t="t2-name">Jessica &amp; Carlos T.</p>
+            <p class="testi-event" data-t="t2-event">Wedding · 175 Guests</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote" data-t="t3-q">"Booked M.G.P. for our company's end-of-year party and it was a huge hit. The tent setup was beautiful, the sound system was crystal clear, and the crew was professional from start to finish. Already rebooked for next year."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">AM</div>
+          <div>
+            <p class="testi-name" data-t="t3-name">Andrea M.</p>
+            <p class="testi-event" data-t="t3-event">Corporate Event · 120 Guests</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="urgency-strip">
+  🔥 <span data-t="urgency-text">Booking fast for Summer &amp; Fall 2026 — limited dates still available.</span> <a href="#book" class="gold" style="text-decoration:underline; font-weight:700;" data-t="urgency-cta">Reserve yours now →</a>
+</div>
 
 <section class="booking-section" id="book">
   <div class="container">
@@ -445,6 +618,38 @@
       "staff-list": "Our Staff Includes",
       "whats-included": "What's Included",
       "ph-replace": "Replace with your photo",
+      "gal-label": "Our Work",
+      "gal-title": "See the <span class=\"gold\">M.G.P. Difference</span>",
+      "gal-sub": "Real setups. Real events. Every detail handled by our team.",
+      "ba-before": "Before",
+      "ba-after": "After M.G.P.",
+      "pkg-label": "What We Offer",
+      "pkg-title": "Simple Packages, <span class=\"gold\">Zero Surprises</span>",
+      "pkg-sub": "Every package includes delivery, setup, and breakdown. Mix and match services to build your perfect event.",
+      "pkg1-name": "Essential",
+      "pkg1-sub": "Perfect for smaller gatherings &amp; focused AV needs",
+      "pkg1-list": "<li>Sound &amp; AV Equipment</li><li>1 Lead AV Technician on-site</li><li>Wireless microphones &amp; speakers</li><li>Setup &amp; breakdown included</li><li>Up to 4 hours of coverage</li>",
+      "pkg2-badge": "Most Popular",
+      "pkg2-name": "Celebration",
+      "pkg2-sub": "Our most popular choice for weddings &amp; quincea&ntilde;eras",
+      "pkg2-list": "<li>Sound &amp; AV Equipment</li><li>Lighting &amp; Stage Setup</li><li>Professional AV Staff</li><li>Tables, chairs &amp; event tents</li><li>Full venue setup &amp; breakdown</li><li>Up to 8 hours of coverage</li>",
+      "pkg3-name": "Full Experience",
+      "pkg3-sub": "Everything M.G.P. has to offer &mdash; all under one roof",
+      "pkg3-list": "<li>Sound &amp; AV Equipment</li><li>Lighting &amp; Stage Setup</li><li>Camera &amp; Video Production</li><li>Full-Service Catering</li><li>Professional AV Staff</li><li>Tables, chairs &amp; event tents</li><li>Complete venue transformation</li><li>Unlimited hours of coverage</li>",
+      "pkg-cta": "Get a Quote",
+      "testi-label": "What Clients Say",
+      "testi-title": "Events They'll <span class=\"gold\">Never Forget</span>",
+      "t1-q": "&ldquo;M.G.P. made our daughter&rsquo;s quincea&ntilde;era absolutely magical. The lighting, the sound, the setup &mdash; everything was flawless. Our guests couldn&rsquo;t stop talking about it. We couldn&rsquo;t have asked for a better team.&rdquo;",
+      "t1-name": "Rosa &amp; Luis M.",
+      "t1-event": "Quincea&ntilde;era &middot; 200 Guests",
+      "t2-q": "&ldquo;We hired M.G.P. for our wedding and they went above and beyond. The catering was incredible, the AV setup was professional, and they handled everything so we didn&rsquo;t have to worry about a single thing on our big day.&rdquo;",
+      "t2-name": "Jessica &amp; Carlos T.",
+      "t2-event": "Wedding &middot; 175 Guests",
+      "t3-q": "&ldquo;Booked M.G.P. for our company&rsquo;s end-of-year party and it was a huge hit. The tent setup was beautiful, the sound system was crystal clear, and the crew was professional from start to finish. Already rebooked for next year.&rdquo;",
+      "t3-name": "Andrea M.",
+      "t3-event": "Corporate Event &middot; 120 Guests",
+      "urgency-text": "Booking fast for Summer &amp; Fall 2026 &mdash; limited dates still available.",
+      "urgency-cta": "Reserve yours now &rarr;",
       "evt-label": "We Serve Every Occasion",
       "evt-title": "The Event Is Yours.<br /><span class=\"gold\">We Make It Shine.</span>",
       "evt-p": "Whether it's an intimate gathering or a grand celebration, our team brings the same passion and precision to every event we touch.",
@@ -533,6 +738,38 @@
       "staff-list": "Nuestro Personal Incluye",
       "whats-included": "Qu&eacute; Incluye",
       "ph-replace": "Reemplaza con tu foto",
+      "gal-label": "Nuestro Trabajo",
+      "gal-title": "Conoce la <span class=\"gold\">Diferencia M.G.P.</span>",
+      "gal-sub": "Montajes reales. Eventos reales. Cada detalle a cargo de nuestro equipo.",
+      "ba-before": "Antes",
+      "ba-after": "Despu&eacute;s de M.G.P.",
+      "pkg-label": "Lo Que Ofrecemos",
+      "pkg-title": "Paquetes Simples, <span class=\"gold\">Sin Sorpresas</span>",
+      "pkg-sub": "Cada paquete incluye entrega, montaje y desmontaje. Combina servicios para crear tu evento perfecto.",
+      "pkg1-name": "Esencial",
+      "pkg1-sub": "Ideal para reuniones peque&ntilde;as y necesidades de AV enfocadas",
+      "pkg1-list": "<li>Equipo de Sonido y AV</li><li>1 T&eacute;cnico AV en sitio</li><li>Micr&oacute;fonos inal&aacute;mbricos y bocinas</li><li>Montaje y desmontaje incluidos</li><li>Hasta 4 horas de cobertura</li>",
+      "pkg2-badge": "M&aacute;s Popular",
+      "pkg2-name": "Celebraci&oacute;n",
+      "pkg2-sub": "Nuestra opci&oacute;n m&aacute;s popular para bodas y quincea&ntilde;eras",
+      "pkg2-list": "<li>Equipo de Sonido y AV</li><li>Iluminaci&oacute;n y Escenario</li><li>Personal AV Profesional</li><li>Mesas, sillas y carpas</li><li>Montaje y desmontaje completo</li><li>Hasta 8 horas de cobertura</li>",
+      "pkg3-name": "Experiencia Completa",
+      "pkg3-sub": "Todo lo que M.G.P. ofrece &mdash; bajo un solo techo",
+      "pkg3-list": "<li>Equipo de Sonido y AV</li><li>Iluminaci&oacute;n y Escenario</li><li>C&aacute;mara y Producci&oacute;n de Video</li><li>Catering Completo</li><li>Personal AV Profesional</li><li>Mesas, sillas y carpas</li><li>Transformaci&oacute;n completa del venue</li><li>Cobertura sin l&iacute;mite de horas</li>",
+      "pkg-cta": "Solicitar Cotizaci&oacute;n",
+      "testi-label": "Lo Que Dicen Nuestros Clientes",
+      "testi-title": "Eventos Que <span class=\"gold\">Jam&aacute;s Olvidar&aacute;n</span>",
+      "t1-q": "&ldquo;M.G.P. hizo la quincea&ntilde;era de nuestra hija absolutamente m&aacute;gica. La iluminaci&oacute;n, el sonido, el montaje &mdash; todo fue impecable. Nuestros invitados no dejaban de hablar de ello. No podr&iacute;amos haber pedido un mejor equipo.&rdquo;",
+      "t1-name": "Rosa y Luis M.",
+      "t1-event": "Quincea&ntilde;era &middot; 200 Invitados",
+      "t2-q": "&ldquo;Contratamos a M.G.P. para nuestra boda y superaron todas las expectativas. La comida fue incre&iacute;ble, el AV fue profesional, y se encargaron de todo para que no tuviéramos que preocuparnos por nada en nuestro gran d&iacute;a.&rdquo;",
+      "t2-name": "Jessica y Carlos T.",
+      "t2-event": "Boda &middot; 175 Invitados",
+      "t3-q": "&ldquo;Contrat&eacute; a M.G.P. para la fiesta de fin de a&ntilde;o de nuestra empresa y fue un gran &eacute;xito. La carpa qued&oacute; hermosa, el sonido fue cristalino y el equipo fue profesional de principio a fin. Ya los reserv&eacute; para el pr&oacute;ximo a&ntilde;o.&rdquo;",
+      "t3-name": "Andrea M.",
+      "t3-event": "Evento Corporativo &middot; 120 Invitados",
+      "urgency-text": "Reservaci&oacute;n r&aacute;pida para Verano y Oto&ntilde;o 2026 &mdash; fechas limitadas disponibles.",
+      "urgency-cta": "Reserva la tuya ahora &rarr;",
       "evt-label": "Servimos Toda Ocasi&oacute;n",
       "evt-title": "El Evento Es Tuyo.<br /><span class=\"gold\">Nosotros Lo Hacemos Brillar.</span>",
       "evt-p": "Ya sea una reuni&oacute;n &iacute;ntima o una gran celebraci&oacute;n, nuestro equipo aporta la misma pasi&oacute;n y precisi&oacute;n a cada evento.",
